@@ -1,0 +1,47 @@
+<% if @artists.any? %>
+    <h1>Searching results</h1>
+    <table id="artists" class="table table-striped table-hover">
+      <thead>
+      <tr>
+        <th>№</th>
+        <th>name</th>
+        <th>albums</th>
+        <th>itunes_id</th>
+      </tr>
+      </thead>
+      <tbody>
+      <% @artists.each.with_index(1) do |artist, index| %>
+          <tr>
+            <td><%= index %></td>
+            <td><%= artist.name %></td>
+            <td><%= artist.albums.count %></td>
+            <td><%= artist.itunes_id %></td>
+          </tr>
+          <% if artist.albums.any? %>
+            <tr class="albums">
+              <td colspan="4">
+                <table class="table table-striped table-hover">
+                  <tbody>
+                  <% artist.albums.each.with_index(1) do |album, index_album| %>
+                    <tr>
+                      <td><%= index_album %></td>
+                      <td><%= album.name %></td>
+                      <td><img src="<%= album.artwork_url_100 %>" alt=""></td>
+                    </tr>
+                  <% end %>
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+          <% end %>
+      <% end %>
+      </tbody>
+    </table>
+<% else %>
+    <h1>The search has not given any results</h1>
+<% end %>
+
+
+
+
+
