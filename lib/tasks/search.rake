@@ -3,9 +3,8 @@ namespace :search do
   task :artist, [:artist_name] => :environment do |task, args|
     Rake::Task['db:reset'].invoke
     artist_searched = args.artist_name
-    puts "Loading artist = #{artist_searched}"
+    puts "Loading artist: #{artist_searched}"
 
-    Artist.destroy_all
     response = JSON.parse ( HTTParty.get("https://itunes.apple.com/search?term=#{artist_searched}&entity=musicArtist") )
 
     if response.present? && response.has_key?("results") && response["results"].any?
