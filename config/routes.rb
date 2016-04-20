@@ -1,6 +1,13 @@
 Rails.application.routes.draw do
-  root "artists#index"
+  # root "artists#index"
 
+  resources :artists, only: [:index] do
+    resources :albums, only: [:index]
+  end
+
+  # resources :decks do
+  #   resources :cards
+  # end
   # get '/index' => 'artists#index', as: :index
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
