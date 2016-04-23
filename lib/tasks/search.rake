@@ -9,7 +9,10 @@ namespace :search do
 
     if response.present? && response.has_key?("results") && response["results"].any?
       response["results"].each do |artist_found|
-        artist = Artist.create(name: artist_found["artistName"], itunes_id: artist_found["artistId"])
+        artist = Artist.create(
+            name: artist_found["artistName"],
+            itunes_id: artist_found["artistId"]
+        )
         albums = JSON.parse ( HTTParty.get("https://itunes.apple.com/lookup?id=#{artist.itunes_id}&entity=album") )
 
         if albums.present? && albums.has_key?("results") && albums["results"].any?
