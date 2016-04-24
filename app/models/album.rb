@@ -1,4 +1,4 @@
-class Album < ActiveRecord::Base
+class Album
   include Mongoid::Document
   field :name, type: String
   field :artwork_url_100, type: String
