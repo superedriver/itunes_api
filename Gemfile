@@ -49,3 +49,4 @@ gem 'httparty', '~> 0.13.7'
 gem 'json', '~> 1.8', '>= 1.8.3'
 
 gem 'mongoid', '~> 5.1.0'
+gem 'rails-api', '~> 0.4.0'
