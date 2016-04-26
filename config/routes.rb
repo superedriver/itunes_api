@@ -1,9 +1,10 @@
 Rails.application.routes.draw do
-  # root "artists#index"
+  # namespace :v1 do
+    resources :artists, only: [:index] do
+      resources :albums, only: [:index]
+    end
+  # end
 
-  resources :artists, only: [:index] do
-    resources :albums, only: [:index]
-  end
 
   # resources :decks do
   #   resources :cards

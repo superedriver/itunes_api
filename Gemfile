@@ -50,3 +50,12 @@ gem 'json', '~> 1.8', '>= 1.8.3'
 
 gem 'mongoid', '~> 5.1.0'
 gem 'rails-api', '~> 0.4.0'
+
+group :development, :test do
+  gem 'rspec-rails', '~> 3.4', '>= 3.4.2'
+  gem 'factory_girl_rails', '~> 4.7'
+end
+
+group :test do
+  gem 'database_cleaner', '~> 1.5', '>= 1.5.1'
+end
