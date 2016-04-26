@@ -57,5 +57,5 @@ group :development, :test do
 end
 
 group :test do
-  gem 'database_cleaner', '~> 1.5', '>= 1.5.1'
+  gem 'database_cleaner', '~> 1.5', '>= 1.5.2'
 end
