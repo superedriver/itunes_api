@@ -13,12 +13,17 @@ RSpec.describe Api::V1::AlbumsController, type: :controller do
     it "without albums" do
       get :index, artist_id: artist.id
       result = JSON.parse(response.body)
-      expect(result.length).to eq(0)
+      expect(result["status"]).to eq("ok")
+      expect(result["message"]).to eq("#{artist.name} albums")
+      expect(result["items"]).to eq([])
     end
 
     it "wrong artist_id" do
       get :index, artist_id: 1
-      expect(response.body).to eq("The search has not given any results")
+      result = JSON.parse(response.body)
+      expect(result["status"]).to eq("error")
+      expect(result["message"]).to eq("Artist not found")
+      expect(result["items"]).to eq([])
     end
 
 
@@ -30,10 +35,18 @@ RSpec.describe Api::V1::AlbumsController, type: :controller do
         @result = JSON.parse(response.body)
       end
 
-      it "loads all of the albums" do
-        expect(@result.length).to eq(2)
-        expect(@result[0]).to include("name" => @album1[:name])
-        expect(@result[1]).to include("name" => @album2[:name])
+      it "response status" do
+        expect(@result["status"]).to eq("ok")
+      end
+
+      it "response message" do
+        expect(@result["message"]).to eq("#{artist.name} albums")
+      end
+
+      it "response items" do
+        expect(@result["items"].length).to eq(2)
+        expect(@result["items"][0]).to include("name" => @album1[:name])
+        expect(@result["items"][1]).to include("name" => @album2[:name])
       end
     end
   end
