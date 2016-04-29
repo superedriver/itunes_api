@@ -8,7 +8,7 @@ Rails.application.routes.draw do
     end
   end
 
-
+  match "*path", to: "errors#catch_404", via: :all
   # resources :decks do
   #   resources :cards
   # end

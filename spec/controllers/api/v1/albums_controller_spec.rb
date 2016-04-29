@@ -1,4 +1,4 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe Api::V1::AlbumsController, type: :controller do
   let(:artist) { create(:artist) }
@@ -14,16 +14,24 @@ RSpec.describe Api::V1::AlbumsController, type: :controller do
       get :index, artist_id: artist.id
       result = JSON.parse(response.body)
       expect(result["status"]).to eq("ok")
-      expect(result["message"]).to eq("#{artist.name} albums")
       expect(result["items"]).to eq([])
     end
 
-    it "wrong artist_id" do
-      get :index, artist_id: 1
-      result = JSON.parse(response.body)
-      expect(result["status"]).to eq("error")
-      expect(result["message"]).to eq("Artist not found")
-      expect(result["items"]).to eq([])
+    describe "wrong artist_id" do
+      before do
+        get :index, artist_id: 1
+        @result = JSON.parse(response.body)
+      end
+
+      it "HTTP 404 status code" do
+        expect(response).to have_http_status(404)
+      end
+
+      it "response body" do
+        expect(@result["status"]).to eq("error")
+        expect(@result["message"]).to eq("Not Found")
+        expect(@result["items"]).to eq([])
+      end
     end
 
 
@@ -37,10 +45,6 @@ RSpec.describe Api::V1::AlbumsController, type: :controller do
 
       it "response status" do
         expect(@result["status"]).to eq("ok")
-      end
-
-      it "response message" do
-        expect(@result["message"]).to eq("#{artist.name} albums")
       end
 
       it "response items" do

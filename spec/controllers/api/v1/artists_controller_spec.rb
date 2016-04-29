@@ -14,7 +14,6 @@ RSpec.describe Api::V1::ArtistsController, type: :controller do
     it "without artists" do
       result = JSON.parse(response.body)
       expect(result["status"]).to eq("ok")
-      expect(result["message"]).to eq("Artists")
       expect(result["items"]).to eq([])
     end
 
@@ -29,10 +28,6 @@ RSpec.describe Api::V1::ArtistsController, type: :controller do
 
       it "response status" do
         expect(@result["status"]).to eq("ok")
-      end
-
-      it "response message" do
-        expect(@result["message"]).to eq("Artists")
       end
 
       it "response items" do
